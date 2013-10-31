@@ -10,6 +10,8 @@ class Song < ActiveRecord::Base
 
   validates_uniqueness_of :title, scope: [:artist, :album]
 
+  scope :on_sale, where("price_in_cents <= 100")
+
   def price
     self.price_in_cents / 100.to_f
   end

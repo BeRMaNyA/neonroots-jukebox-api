@@ -44,4 +44,15 @@ describe Song do
       song.price.should == 1.50
     end
   end
+
+  describe ".on_sale" do
+    it "returns songs priced $1 or less" do
+      FactoryGirl.create(:song, price_in_cents: 300)
+      FactoryGirl.create(:song, price_in_cents: 150)
+      FactoryGirl.create(:song, price_in_cents: 100)
+      FactoryGirl.create(:song, price_in_cents: 80)
+
+      Song.on_sale.size.should be 2
+    end
+  end
 end
