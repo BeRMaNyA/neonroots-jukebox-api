@@ -2,100 +2,71 @@ require 'spec_helper'
 
 describe 'Songs API' do
   context "failed request" do
+    let(:url) { "/songs.json" }
     subject { JSON.parse(last_response.body)['errors'] }
 
-    context "title, artist, album and price are not provided" do
+    context "title is not provided" do
       it "responds with an error" do
-        post '/songs'
+        post url, { album: 'test', artist: 'test', price_in_cents: '50' }
         should have_key('title')
-        should have_key('artist')
-        should have_key('album')
-        should have_key('price_in_cents')
       end
     end
 
     context "name is duplicated" do
       it "respond with an error" do
         song = FactoryGirl.create(:song)
-        post "/songs", { title: song.title, album: song.album, artist: song.artist, price: 100 }
+        post url, { title: song.title, album: song.album, artist: song.artist, price: 100 }
         should have_key('title')
       end
     end
   end
 
   context "successful request" do
+    let(:url) { "/songs.json" }
     subject { JSON.parse(last_response.body) }
 
     it "returns a song record" do
-      post "/songs", { title: "Awesome Song", artist: "Berna", album: "Top Hits", price: 100 }
+      post url, { title: "Awesome Song", artist: "Berna", album: "Top Hits", price: 100 }
       song = Song.last
 
-      subject['id'].should     == song.id
-      subject['title'].should  == song.title
-      subject['artist'].should == song.artist
-      subject['album'].should  == song.album
-      subject['price'].should  == song.price
+      subject.should == { "id" => song.id, "title" => song.title, "artist" => song.artist, "album" => song.album, "price" => song.price }
     end
 
     context "returns a list of songs in the server" do
       before do
-        Song.destroy_all
         100.times.each do
           song = FactoryGirl.create :song
         end
       end
 
-      let(:url) { "/songs" }
-
       it "should paginate the first 50 songs" do
-        get url
-        subject.should have_key("pagination")
-        subject["pagination"]["total"].should eql(100)
-        subject["pagination"]["total_pages"].should eql(2)
-        subject["pagination"]["current_page"].should eql(1)
-        subject.should have_key("songs")
-        subject["songs"].count.should eql(50)
+        get url, { limit: 50 }
+        subject["pagination"].should == { "total"=>100, "total_pages"=>2, "current_page"=>1 }
       end
 
       it "should paginate the second 50 songs" do
-        get url, { page: 2 }
-        subject.should have_key("pagination")
-        subject["pagination"]["total"].should eql(100)
-        subject["pagination"]["total_pages"].should eql(2)
-        subject["pagination"]["current_page"].should eql(2)
-        subject.should have_key("songs")
-        subject["songs"].count.should eql(50)
+        get url, { limit: 50, page: 2 }
+        subject["pagination"].should == { "total"=>100, "total_pages"=>2, "current_page"=>2 }
       end
     end
 
     context "returns a list of songs on sale" do
       before do
-        Song.destroy_all
         100.times.each do
           song = FactoryGirl.create :song, price_in_cents: 100
         end
       end
 
-      let(:url) { "/songs/on_sale" }
+      let(:url) { "/songs/on_sale.json" }
 
       it "should paginate the first 50 songs on sale" do
-        get url
-        subject.should have_key("pagination")
-        subject["pagination"]["total"].should eql(100)
-        subject["pagination"]["total_pages"].should eql(2)
-        subject["pagination"]["current_page"].should eql(1)
-        subject.should have_key("songs")
-        subject["songs"].count.should eql(50)
+        get url, { limit: 50 }
+        subject["pagination"].should == { "total"=>100, "total_pages"=>2, "current_page"=>1 }
       end
 
       it "should paginate the second 50 songs on sale" do
-        get url, { page: 2 }
-        subject.should have_key("pagination")
-        subject["pagination"]["total"].should eql(100)
-        subject["pagination"]["total_pages"].should eql(2)
-        subject["pagination"]["current_page"].should eql(2)
-        subject.should have_key("songs")
-        subject["songs"].count.should eql(50)
+        get url, { page: 2, limit: 50 }
+        subject["pagination"].should == { "total"=>100, "total_pages"=>2, "current_page"=>2 }
       end
     end
   end

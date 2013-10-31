@@ -5,11 +5,9 @@ class Bar < ActiveRecord::Base
   before_validation :generate_token
   before_validation :downcase_name
 
-  validates_presence_of :name
-  validates_presence_of :token
+  validates :name, :token, presence: true
 
-  validates_uniqueness_of :token
-  validates_uniqueness_of :name_downcased
+  validates :token, :name_downcased, uniqueness: true
 
   private
 

@@ -1,31 +1,31 @@
 class SongsController < ApplicationController
-  # GET /songs
+  # GET /songs.json
   def index
-    @songs = Song.paginate(:per_page => 50, :page => params[:page])
+    @songs = Song.paginate(:per_page => params[:limit], :page => params[:page])
 
     respond_to do |format|
-      format.html
+      format.json
     end
   end
 
-  # GET /songs/on_sale
+  # GET /songs/on_sale.json
   def on_sale
-    @songs = Song.on_sale.paginate(:per_page => 50, :page => params[:page])
+    @songs = Song.on_sale.paginate(:per_page => params[:limit], :page => params[:page])
 
     respond_to do |format|
-      format.html
+      format.json
     end
   end
 
-  # POST /songs
+  # POST /songs.json
   def create
     @song = Song.new(title: params[:title], artist: params[:artist], album: params[:album], price_in_cents: params[:price])
 
     respond_to do |format|
       if @song.save
-        format.html { render 'songs/song' }
+        format.json { render 'songs/song' }
       else
-        format.html { render json: { errors: @song.errors }, status: :unprocessable_entity }
+        format.json { render json: { errors: @song.errors }, status: :unprocessable_entity }
       end
     end
   end

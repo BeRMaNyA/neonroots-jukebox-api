@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe Bar do
-  before do
-    Bar.delete_all
-  end
-
   it "must have a name" do
     should have(1).error_on(:name)
   end
