@@ -19,6 +19,7 @@ group :test do
   gem 'faker'
   gem 'factory_girl'
   gem 'database_cleaner'
+  gem 'shoulda-matchers'
 end
 
 gem 'kaminari'
