@@ -50,9 +50,9 @@ describe 'Songs API' do
       it "should paginate the first 50 songs" do
         get url
         subject.should have_key("pagination")
-        subject["pagination"]["total"].should == 100
-        subject["pagination"]["total_pages"].should == 2
-        subject["pagination"]["current_page"].should == 1
+        subject["pagination"]["total"].should eql(100)
+        subject["pagination"]["total_pages"].should eql(2)
+        subject["pagination"]["current_page"].should eql(1)
         subject.should have_key("songs")
         subject["songs"].count.should eql(50)
       end
@@ -60,9 +60,9 @@ describe 'Songs API' do
       it "should paginate the second 50 songs" do
         get url, { page: 2 }
         subject.should have_key("pagination")
-        subject["pagination"]["total"].should == 100
-        subject["pagination"]["total_pages"].should == 2
-        subject["pagination"]["current_page"].should == 2
+        subject["pagination"]["total"].should eql(100)
+        subject["pagination"]["total_pages"].should eql(2)
+        subject["pagination"]["current_page"].should eql(2)
         subject.should have_key("songs")
         subject["songs"].count.should eql(50)
       end
@@ -81,9 +81,9 @@ describe 'Songs API' do
       it "should paginate the first 50 songs on sale" do
         get url
         subject.should have_key("pagination")
-        subject["pagination"]["total"].should == 100
-        subject["pagination"]["total_pages"].should == 2
-        subject["pagination"]["current_page"].should == 1
+        subject["pagination"]["total"].should eql(100)
+        subject["pagination"]["total_pages"].should eql(2)
+        subject["pagination"]["current_page"].should eql(1)
         subject.should have_key("songs")
         subject["songs"].count.should eql(50)
       end
@@ -91,9 +91,9 @@ describe 'Songs API' do
       it "should paginate the second 50 songs on sale" do
         get url, { page: 2 }
         subject.should have_key("pagination")
-        subject["pagination"]["total"].should == 100
-        subject["pagination"]["total_pages"].should == 2
-        subject["pagination"]["current_page"].should == 2
+        subject["pagination"]["total"].should eql(100)
+        subject["pagination"]["total_pages"].should eql(2)
+        subject["pagination"]["current_page"].should eql(2)
         subject.should have_key("songs")
         subject["songs"].count.should eql(50)
       end
