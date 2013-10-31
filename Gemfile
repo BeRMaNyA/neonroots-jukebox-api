@@ -23,5 +23,5 @@ group :test do
 end
 
 gem 'thin'
-gem 'kaminari'
+gem 'will_paginate', '~> 3.0'
 gem 'rabl'

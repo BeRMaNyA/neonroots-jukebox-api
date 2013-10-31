@@ -20,6 +20,6 @@ class Bar < ActiveRecord::Base
   end
 
   def downcase_name
-    self.name_downcased = self.name.downcase if self.name.present?
+    self.name_downcased = self.name.try(:downcase)
   end
 end

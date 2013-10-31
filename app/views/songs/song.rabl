@@ -1,1 +1,3 @@
-attributes :id, :title, :artist, :album, :price
+object @song => ""
+
+extends "songs/base"

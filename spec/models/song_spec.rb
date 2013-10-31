@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Song do
   before do
-    Bar.delete_all
+    Song.delete_all
   end
 
   it "must have a title" do

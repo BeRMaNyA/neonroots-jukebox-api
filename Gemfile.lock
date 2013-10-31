@@ -61,9 +61,6 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.1)
-    kaminari (0.14.1)
-      actionpack (>= 3.0.0)
-      activesupport (>= 3.0.0)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -134,6 +131,7 @@ GEM
     uglifier (2.3.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    will_paginate (3.0.5)
 
 PLATFORMS
   ruby
@@ -145,7 +143,6 @@ DEPENDENCIES
   factory_girl
   faker
   jquery-rails
-  kaminari
   pg
   rabl
   rails (= 3.2.15)
@@ -154,3 +151,4 @@ DEPENDENCIES
   shoulda-matchers
   thin
   uglifier (>= 1.0.3)
+  will_paginate (~> 3.0)
