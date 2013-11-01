@@ -35,7 +35,7 @@ describe 'Songs API' do
     context "returns a list of songs in the server" do
       before do
         100.times.each do
-          song = FactoryGirl.create :song
+          FactoryGirl.create :song
         end
         FactoryGirl.create :bar
       end
@@ -54,7 +54,7 @@ describe 'Songs API' do
     context "returns a list of songs on sale" do
       before do
         100.times.each do
-          song = FactoryGirl.create :song, price_in_cents: 100
+          FactoryGirl.create :song, price_in_cents: 100
         end
       end
 
