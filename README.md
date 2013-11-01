@@ -1,4 +1,4 @@
-# NeonRoots's Juckebox Api
+# NeonRoots's Jukebox Api
 
 This is a simple API for NeonRoots
 
