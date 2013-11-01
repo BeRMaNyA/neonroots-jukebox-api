@@ -15,7 +15,7 @@ class BarsController < ApplicationController
 
     respond_to do |format|
       if @bar.save
-        format.json { render 'bars/bar' }
+        format.json { render 'bars/show' }
       else
         format.json { render json: { errors: @bar.errors }, status: :unprocessable_entity }
       end
@@ -28,7 +28,7 @@ class BarsController < ApplicationController
     @song = Song.on_sale.find(params[:song_id])
 
     respond_to do |format|
-      format.json { render 'songs/song' }
+      format.json { render 'songs/show' }
     end
   end
 end

@@ -7,7 +7,7 @@ class SongsController < ApplicationController
     @songs = Song.paginate(:per_page => params[:limit], :page => params[:page])
 
     respond_to do |format|
-      format.json
+      format.json { render "songs/list" }
     end
   end
 
@@ -16,7 +16,7 @@ class SongsController < ApplicationController
     @songs = Song.on_sale.paginate(:per_page => params[:limit], :page => params[:page])
 
     respond_to do |format|
-      format.json
+      format.json { render "songs/list" }
     end
   end
 
@@ -26,7 +26,7 @@ class SongsController < ApplicationController
 
     respond_to do |format|
       if @song.save
-        format.json { render 'songs/song' }
+        format.json { render "songs/show" }
       else
         format.json { render json: { errors: @song.errors }, status: :unprocessable_entity }
       end
