@@ -35,7 +35,7 @@ describe 'Bars API' do
     context "buys a song" do
       before do
         FactoryGirl.create(:bar)
-        FactoryGirl.create(:song)
+        FactoryGirl.create(:song, price_in_cents: 90)
       end
 
       it "returns a song record" do

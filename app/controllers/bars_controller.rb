@@ -25,7 +25,7 @@ class BarsController < ApplicationController
   # POST /bars/:bar_id/songs.json
   def buy
     bar  = Bar.find(params[:id])
-    @song = Song.find(params[:song_id])
+    @song = Song.on_sale.find(params[:song_id])
 
     respond_to do |format|
       format.json { render 'songs/song' }
