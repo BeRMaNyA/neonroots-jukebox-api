@@ -42,7 +42,7 @@ describe 'Bars API' do
         bar  = Bar.last
         song = Song.last
 
-        post "/bars/#{bar.id}/songs.json", { song_id: song.id }
+        post "/bars/#{bar.id}/songs.json", { song_id: song.id }, 'HTTP_AUTHORIZATION' => ActionController::HttpAuthentication::Token.encode_credentials(Bar.last.token)
         subject.should == { "id" => song.id, "title" => song.title, "artist" => song.artist, "album" => song.album, "price" => song.price }
       end
     end

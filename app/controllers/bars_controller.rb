@@ -1,5 +1,7 @@
 class BarsController < ApplicationController
-  # GET /bars.json
+  before_filter :authenticate_bar_owner, only: [:buy]
+
+  # GET /bars
   # GET /
   def index
     respond_to do |format|

@@ -1,4 +1,7 @@
 class SongsController < ApplicationController
+  before_filter :authenticate_admin, only: [:create]
+  before_filter :authenticate_admin_or_bar_owner, only: [:on_sale, :index]
+
   # GET /songs.json
   def index
     @songs = Song.paginate(:per_page => params[:limit], :page => params[:page])
